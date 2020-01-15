@@ -2,7 +2,7 @@
 Some code about binary tree,to understand easily.
 整理的一些二叉树的相关代码实现，便于理解。
 
-### For example其中一些方法,其他方法自己看demo
+### For example  下面是其中一些方法,其他方法自己看demo
 
 Detail see demo.
 
