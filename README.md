@@ -7,13 +7,17 @@ Some code about binary tree,to understand easily.
 Detail see demo.
 
 先序遍历
+
 +(void)firstTraverseWithTree:(CDPBinaryTree *)tree doWithNode:(void(^)(CDPBinaryTree *node))block;
 
 中序遍历
+
 +(void)midTraverseWithTree:(CDPBinaryTree *)tree doWithNode:(void(^)(CDPBinaryTree *node))block;
 
 后序遍历
+
 +(void)lastTraverseWithTree:(CDPBinaryTree *)tree doWithNode:(void(^)(CDPBinaryTree *node))block;
 
 广度优先遍历(层次遍历)
+
 +(void)levelTraverseWithTree:(CDPBinaryTree *)tree doWithNode:(void(^)(CDPBinaryTree *node))block;
