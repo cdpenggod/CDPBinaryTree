@@ -123,6 +123,16 @@
  */
 +(BOOL)isAVLBinaryTree:(CDPBinaryTree *)tree;
 
+/**
+ *  根据value数组创建哈夫曼树(即最优二叉树)
+ *  (元素为NSNumber,数组内最少两个value,否则返回nil)
+ */
++(CDPBinaryTree *)createHuffmanTreeWithValueArr:(NSArray *)valueArr;
+
+
+
+
+
 @end
 
 
