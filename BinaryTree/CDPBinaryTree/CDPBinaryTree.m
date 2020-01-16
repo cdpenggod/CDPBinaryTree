@@ -410,7 +410,65 @@
         return NO;
     }
 }
+//根据value数组获取哈夫曼树(即最优二叉树,数组内最少两个value,否则返回nil)
++(CDPBinaryTree *)createHuffmanTreeWithValueArr:(NSArray *)valueArr{
+    if (valueArr==nil||valueArr.count<=1) {
+        return nil;
+    }
+    if (valueArr.count==2) {
+        //只有两个节点
+        NSInteger left=[valueArr[0] integerValue];
+        NSInteger right=[valueArr[1] integerValue];
 
+        return [CDPBinaryTree createWithValue:left+right
+                                         left:[CDPBinaryTree createWithValue:left left:nil right:nil]
+                                        right:[CDPBinaryTree createWithValue:right left:nil right:nil]];;
+    }
+    
+    //将value放入可变数组队列，方便计算
+    NSMutableArray *arr=[[NSMutableArray alloc] initWithArray:valueArr];
+    
+    //根据arr创建对应的节点数组，每一个value对应一个叶子节点
+    NSMutableArray *treeArr=[NSMutableArray new];
+    
+    for (NSInteger i=0;i<arr.count;i++) {
+        CDPBinaryTree *tree=[CDPBinaryTree createWithValue:[arr[i] integerValue]
+                                                      left:nil
+                                                     right:nil];
+        [treeArr addObject:tree];
+    }
+    
+    while (arr.count>1) {
+        //将数组按照升序排序
+        [arr sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [@([obj1 integerValue]) compare:@([obj2 integerValue])];
+        }];
+        [treeArr sortUsingComparator:^NSComparisonResult(CDPBinaryTree *obj1, CDPBinaryTree *obj2) {
+            return [@(obj1.value) compare:@(obj2.value)];
+        }];
+        
+        //取出排序后最小的两个value和节点
+        NSInteger one=[arr[0] integerValue];
+        NSInteger two=[arr[1] integerValue];
+        CDPBinaryTree *oneNode=treeArr[0];
+        CDPBinaryTree *twoNode=treeArr[1];
+        
+        CDPBinaryTree *tree=[CDPBinaryTree createWithValue:one+two
+                                                      left:oneNode
+                                                     right:twoNode];
+        
+        //队列移除最小两位，并加入新value和节点
+        [arr removeObjectAtIndex:0];
+        [arr removeObjectAtIndex:0];
+        [arr addObject:[NSNumber numberWithInteger:one+two]];
+        
+        [treeArr removeObject:oneNode];
+        [treeArr removeObject:twoNode];
+        [treeArr addObject:tree];
+    }
+    
+    return (treeArr>0)?treeArr[0]:nil;
+}
 
 
 
